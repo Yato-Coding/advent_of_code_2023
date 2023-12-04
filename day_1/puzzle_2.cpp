@@ -1,9 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <unordered_map>
+#include <chrono>
 
 int main(){
-   std::unordered_map<std::string, int> patterns = { 
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    std::unordered_map<std::string, int> patterns = { 
         {"one", 1},
         {"1", 1},
         {"two", 2},
@@ -36,11 +39,9 @@ int main(){
         size_t high_num{}; 
         int counter{0};
 
-        
         for(const auto& entry : patterns){  
             const std::string& pattern = entry.first;
             size_t numberEntry = entry.second;
-            
             size_t pos = line.find(pattern);
             
             while(pos != std::string::npos && pos != -1){
@@ -59,15 +60,17 @@ int main(){
         std::string number{};
         if(counter == 1){
             number = std::to_string(low_num) + std::to_string(low_num);
-            std::cout << number << '\n';
         }
         else{
             number = std::to_string(low_num) + std::to_string(high_num);
-            std::cout << number << '\n';
         }
         sum = sum + std::stoi(number);
     }
     
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << sum << '\n';
+    std::cout << "Time taken: " << duration.count() << " milliseconds" << '\n';
     return 0;
 }
