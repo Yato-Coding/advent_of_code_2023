@@ -44,34 +44,27 @@ int main(){
         }
 
         bool valid{true};
+        int min_r{0};
+        int min_b{0};
+        int min_g{0};
         for(auto i{0}; i < colors.size(); i++){           
-            int min_r{0};
-            int min_b{0};
-            int min_g{0};
-
             if(colors[i] == " red"){
-                if(std::stoi(numbers[i]) > red){
-                   valid = false;
-                   break; 
+                if(std::stoi(numbers[i]) > min_r){
+                   min_r = std::stoi(numbers[i]);
                 }
             }
             if(colors[i] == " blue"){
-                if(std::stoi(numbers[i]) > blue){
-                   valid = false;
-                   break; 
+                if(std::stoi(numbers[i]) > min_b){
+                   min_b = std::stoi(numbers[i]);
                 }
             }
             if(colors[i] == " green"){
-                if(std::stoi(numbers[i]) > green){
-                   valid = false;
-                   break; 
+                if(std::stoi(numbers[i]) > min_g){
+                   min_g = std::stoi(numbers[i]);
                 }
             }
        }
-      
-       if(valid){
-           sum += std::stoi(index);         
-       }
+       sum += (min_r*min_b*min_g);
     }
     std::cout << sum << '\n';
     return 0;
